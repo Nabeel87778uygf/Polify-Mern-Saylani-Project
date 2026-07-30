@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Poll from "../models/Poll.js";
-import { shapePoll, withCounts } from "../utils/pollUtils.js";
+import { shapePoll } from "../utils/pollShape.js";
+import { withCounts } from "../utils/counts.js";
 
 //to get public profile and the poll they have created
 export const getPublicProfile = async (req, res) => {
