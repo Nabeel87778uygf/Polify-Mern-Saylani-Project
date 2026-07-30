@@ -34,7 +34,7 @@ const LoginPage = () => {
         } catch (err) {
             const data = err.response?.data;
 
-            if (data?.needsVerification)
+            if (data?.needsVerification || data?.needVerification)
                 return navigate("/verify-otp", { state: { email: form.email } });
 
             setError(data?.message || "Login failed. Check your credentials");

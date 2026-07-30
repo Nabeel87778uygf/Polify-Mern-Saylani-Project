@@ -46,7 +46,10 @@ export function AuthProvider({ children }) {
 
 
     //to resend the otp
-    const resendOtp = (email) => api.post("/auth/resend-otp", { email });
+    const resendOtp = (email) => {
+        const emailStr = typeof email === "object" && email !== null ? email.email : email;
+        return api.post("/auth/resend-otp", { email: emailStr });
+    };
 
     //to login
     const login = async (payload) => {
@@ -56,8 +59,10 @@ export function AuthProvider({ children }) {
     }
 
     //for forgot,verifyotp, and reset the password
-    const forgotPassword = (email) =>
-        api.post("auth/forgot-password", { email });
+    const forgotPassword = (email) => {
+        const emailStr = typeof email === "object" && email !== null ? email.email : email;
+        return api.post("/auth/forgot-password", { email: emailStr });
+    };
 
     const verifyResetOtp = (payload) =>
         api.post("/auth/verify-reset-otp", payload);

@@ -4,8 +4,9 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import OtpStep from "../components/OtpStep";
 import AuthLayout from "../components/AuthLayout";
-// import { authInputCls, AuthButton } from "../components/UIElements";
+import { authInputCls, AuthButton } from "../components/UIElements";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
+
 
 const ForgotPasswordPage = () => {
     const { forgotPassword, verifyResetOtp, resetPassword } = useAuth();
@@ -253,10 +254,10 @@ const ForgotPasswordPage = () => {
                 </form>
             )}
 
-            <p className={s.footerText}>
-                Remember your password?{" "}
+            <p className={s.footerLink}>
+                Remember it now?{" "}
                 <Link to="/login" className={s.link}>
-                    Back to Login
+                    Sign in
                 </Link>
             </p>
         </AuthLayout>
