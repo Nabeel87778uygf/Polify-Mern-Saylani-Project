@@ -1,6 +1,6 @@
 import express from "express"
 import { protect } from "../middleware/auth.js";
-import { createPoll, getMyPolls, listPolls, getBookmarks, getPollAnalytics, getTrending, getVotedPolls } from "../controllers/pollController.js";
+import { createPoll, getMyPolls, listPolls, getBookmarks, getPollAnalytics, getTrending, getVotedPolls, getPoll } from "../controllers/pollController.js";
 import { votePoll, removeVote, closePoll, toggleBookmark, deletePoll, updatePoll } from "../controllers/voteController.js";
 import { upload } from "../config/cloudinary.js";
 
@@ -15,6 +15,9 @@ pollRouter.get("/mine", getMyPolls);
 pollRouter.get("/voted", getVotedPolls);
 pollRouter.post('/bookmarks', getBookmarks);
 pollRouter.get('/trending', getTrending);
+
+pollRouter.get("/:id", getPoll);
+pollRouter.get("/:id/analytics", getPollAnalytics);
 
 //vote 
 pollRouter.post('/:id/vote', votePoll);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { authLayoutStyles as s } from "../assets/dummyStlyes";
+import { authLayoutStyles as s } from "../assets/dummyStyles";
 import { TrendingUp, Users, Zap } from "lucide-react";
 import logo from "../assets/logo.png";
 
@@ -14,9 +14,9 @@ const AuthLayout = ({ title, subtitle, children }) => {
         <div className={s.container}>
             {/* Left Panel - Hidden on mobile, visible on desktop */}
             <div className={s.leftPanel}>
-                <div 
-                    className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-                    style={s.gridPatternStyle} 
+                <div
+                    className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                    style={s.gridPatternStyle}
                 />
                 <div className={s.glowTop} />
                 <div className={s.glowBottom} />

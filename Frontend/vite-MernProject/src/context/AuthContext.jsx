@@ -83,6 +83,7 @@ export function AuthProvider({ children }) {
     const logout = () => {
         localStorage.removeItem("token");
         setUser(null);
+        setStats({ created: 0, voted: 0, bookmarked: 0 });
     }
 
     //to delete an account

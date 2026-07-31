@@ -7,7 +7,7 @@ import {
     MessageSquare,
 } from "lucide-react";
 
-import { sidebarStyles as s } from "../assets/dummyStlyes";
+import { sidebarStyles as s } from "../assets/dummyStyles";
 import { useAuth } from "../context/AuthContext";
 import { Avatar } from "./UIElements";
 import api from "../utils/api";

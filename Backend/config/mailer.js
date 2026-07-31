@@ -17,6 +17,7 @@ const getTransporter = () => {
 //to send 6 digits OTP via email
 export const sendOTPEmail = async (to, otp, reason = "verify your email") => {
   const transporter = getTransporter();
+  console.log(`[DEV] OTP sent to ${to}: ${otp} (Reason: ${reason})`);
   await transporter.sendMail({
     from: `"Pollify" <${process.env.EMAIL_FROM || process.env.SMTP_USER}>`,
     to,
@@ -28,6 +29,6 @@ export const sendOTPEmail = async (to, otp, reason = "verify your email") => {
         <div style="font-size:34px;font-weight:800;letter-spacing:8px;color:#0f172a;margin:16px 0">${otp}</div>
         <p style="color:#94a3b8;font-size:13px">This code expires in 10 minutes. If you didn't request it, ignore this email.</p>
       </div>`,
-  })
+  });
 
 }

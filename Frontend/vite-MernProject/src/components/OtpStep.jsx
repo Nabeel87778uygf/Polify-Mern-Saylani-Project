@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Mail, RefreshCw } from "lucide-react";
-import { otpStepStyles as s, uiElementStyles as ui } from "../assets/dummyStlyes";
+import { otpStepStyles as s, uiElementStyles as ui } from "../assets/dummyStyles";
 
 export default function OtpStep({
     email,

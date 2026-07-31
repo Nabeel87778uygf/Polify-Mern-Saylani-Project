@@ -1,59 +1,153 @@
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import api from "../utils/api";
+import { useToast } from "../components/Toast";
 
 export default function usePolls(path) {
     const [polls, setPolls] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { refresh } = useState();
 
-    //for toast
     const toast = useToast();
 
-    //to load polls
+    // Agar AuthContext me refresh function hai to wahan se lo.
+    // Filhal empty function rakha hai.
+    const refresh = () => { };
+
+    // Load polls
     const load = useCallback(async () => {
         setLoading(true);
+
         try {
             const { data } = await api.get(path);
             setPolls(data);
-
+        } catch (err) {
+            toast(
+                err.response?.data?.message || "Failed to load polls",
+                "error"
+            );
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-
-    }, [path]);
+    }, [path, toast]);
 
     useEffect(() => {
         load();
-
     }, [load]);
 
-    //to replace the polls with other polls
-    const replace = (p) => {
-        setPolls((err) => Array.map((x) => (x._id === p._id ? p : x)));
+    // Replace updated poll
+    const replace = (poll) => {
+        setPolls((arr) =>
+            arr.map((x) => (x._id === poll._id ? poll : x))
+        );
+    };
 
-        //to vote on a poll or to change your vote
-        const vote = async (id, value) => {
-            const wasvoted = polls.find((p) => p._id === id)?.myvote != null;
+    // Vote
+    const vote = async (id, value) => {
+        try {
             await api.post(`/polls/${id}/vote`, { value });
 
-            const { data } = await api.get(`polls/${id}?noview=true`); //refetch to get result
-            resplace(data);
-            toast(wasVoted ? "vote changed" : "Vote recorded");
+            const { data } = await api.get(`/polls/${id}?noview=true`);
+
+            replace(data);
+            toast("Vote recorded");
             refresh();
-
-        };
-
-        // to remove your vote
-        const unvote = async (id) => {
-            try {
-                await api.delete(`/polls/${id / vote}`);
-                const { data } = await api.get(`/polls/${id}`);
-
-            } catch (error) {
-
-            }
+        } catch (err) {
+            toast(
+                err.response?.data?.message ||
+                "Couldn't record vote. Is the server running?",
+                "error"
+            );
         }
+    };
 
-    }
+    // Bookmark
+    const bookmark = async (id) => {
+        try {
+            await api.post(`/polls/${id}/bookmark`);
 
+            setPolls((arr) =>
+                arr.map((x) =>
+                    x._id === id
+                        ? {
+                            ...x,
+                            isBookmarked: !x.isBookmarked,
+                            saves: (x.saves || 0) + (x.isBookmarked ? -1 : 1),
+                        }
+                        : x
+                )
+            );
+
+            toast("Bookmark updated");
+        } catch (err) {
+            toast(
+                err.response?.data?.message || "Bookmark failed",
+                "error"
+            );
+        }
+    };
+
+    // Edit poll
+    const edit = async (id, payload) => {
+        try {
+            await api.patch(`/polls/${id}`, payload);
+
+            const { data } = await api.get(`/polls/${id}?noview=true`);
+
+            replace(data);
+
+            toast("Poll updated");
+        } catch (err) {
+            toast(
+                err.response?.data?.message || "Update failed",
+                "error"
+            );
+        }
+    };
+
+    // Close / Re-open poll
+    const close = async (id) => {
+        try {
+            const { data } = await api.patch(`/polls/${id}/close`);
+
+            setPolls((arr) =>
+                arr.map((x) => (x._id === id ? data : x))
+            );
+
+            toast("Poll status updated");
+        } catch (err) {
+            toast(
+                err.response?.data?.message || "Operation failed",
+                "error"
+            );
+        }
+    };
+
+    // Delete poll
+    const remove = async (id) => {
+        try {
+            await api.delete(`/polls/${id}`);
+
+            setPolls((arr) =>
+                arr.filter((x) => x._id !== id)
+            );
+
+            toast("Poll deleted");
+            refresh();
+        } catch (err) {
+            toast(
+                err.response?.data?.message || "Delete failed",
+                "error"
+            );
+        }
+    };
+
+    return {
+        polls,
+        loading,
+        load,
+        vote,
+        bookmark,
+        edit,
+        close,
+        remove,
+    };
 }

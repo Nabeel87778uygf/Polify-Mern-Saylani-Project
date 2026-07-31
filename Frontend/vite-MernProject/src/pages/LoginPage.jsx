@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { CheckCircle, Mail, Eye, EyeOff, Loader, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { loginStyles as s } from "../assets/dummyStlyes";
+import { loginStyles as s } from "../assets/dummyStyles";
 import AuthLayout from '../components/AuthLayout';
 
 const LoginPage = () => {
@@ -44,7 +44,7 @@ const LoginPage = () => {
     };
 
     return (
-        <AuthLayout 
+        <AuthLayout
             title="welcome Back"
             subtitle="Sign in to your Pollify account"
         >

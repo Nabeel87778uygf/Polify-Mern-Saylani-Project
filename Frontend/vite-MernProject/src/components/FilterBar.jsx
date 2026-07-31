@@ -8,7 +8,7 @@ import {
     Sparkles,
 } from "lucide-react";
 
-import { filterBarStyles as s } from "../assets/dummyStlyes";
+import { filterBarStyles as s } from "../assets/dummyStyles";
 // Agar file ka naam dummyStyles.jsx hai to upar wali line ko:
 // import { filterBarStyles as s } from "../assets/dummyStyles";
 
@@ -59,8 +59,7 @@ const FilterBar = ({ value, onChange }) => {
                         key={filter.key}
                         type="button"
                         onClick={() => onChange?.(filter.key)}
-                        className={`${s.button} ${value === filter.key ? s.activeButton : ""
-                            }`}
+                        className={`${s.filterButtonBase} ${value === filter.key ? s.filterButtonActive : s.filterButtonInactive}`}
                     >
                         <Icon size={16} />
                         <span>{filter.label}</span>

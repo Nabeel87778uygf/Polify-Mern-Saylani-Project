@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { forgotPasswordStyles as s } from "../assets/dummyStlyes";
+import { forgotPasswordStyles as s } from "../assets/dummyStyles";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import OtpStep from "../components/OtpStep";

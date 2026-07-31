@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import api from "../utils/api"; // apne project ke path ke hisaab se change karein
 import useClickOutside from "../hooks/useClickOutside"; // agar hook bana hua hai
 
-import { notificationStyles as s } from "../assets/dummyStlyes";
+import { notificationStyles as s } from "../assets/dummyStyles";
 
 const verb = (type) =>
     type === "vote" ? "voted on your poll" : "commented on your poll";

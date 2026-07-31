@@ -1,5 +1,5 @@
 import React from "react";
-import { verifyOtpStyles as s } from "../assets/dummyStlyes";
+import { verifyOtpStyles as s } from "../assets/dummyStyles";
 import AuthLayout from "../components/AuthLayout";
 import OtpStep from "../components/OtpStep";
 import { Navigate, useLocation, useNavigate, Link } from "react-router-dom";

@@ -21,6 +21,14 @@ app.use(cors(
 
 app.use(express.json());
 
+// Disable caching for API responses
+app.use((req, res, next) => {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    next();
+});
+
 // Connect to Database
 connectDB();
 
@@ -30,6 +38,7 @@ app.use("/api/polls", pollRouter);
 app.use('/api/comments', commentRouter);
 app.use('/api/users', userRouter);
 app.use("/api/notifications", notificationRouter);
+app.use("/api/notification", notificationRouter);
 
 
 app.get("/", (req, res) => {

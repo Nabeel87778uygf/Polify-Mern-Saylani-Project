@@ -13,7 +13,7 @@ import {
     LogOut,
 } from "lucide-react";
 
-import { layoutStyles as s } from "../assets/dummyStlyes";
+import { layoutStyles as s } from "../assets/dummyStyles";
 import logo from "../assets/logo.png";
 import NotificationBell from "./NotificationBell";
 import { useAuth } from "../context/AuthContext";
@@ -134,7 +134,7 @@ function Layout() {
 
             {/* body */}
             <div className={s.bodyContainer}>
-                <aside className={s.sidebar}>
+                <aside className={s.leftSidebar}>
                     <p className={s.menuLabel}>Menu</p>
 
                     <nav className={s.navContainer}>
@@ -172,7 +172,7 @@ function Layout() {
                 </aside>
 
                 {/* MAIN */}
-                <main className={s.main}>
+                <main className={s.mainContent}>
                     <Outlet />
                 </main>
 
